@@ -1,11 +1,9 @@
-import express from "express";
-const catsRouter = express.Router();
-import { getAllCats } from "../models/catsModels.js"
+import express, {Router} from "express";
+import cors from "cors";
+import {query} from "../db/index.js"
+import {getAllCats} from "../models/catsModels.js"
+const catsRouter = express.Router(cors());
 
-/* GET cats listing. */
-// catsRouter.get("/", function (req, res, next) {
-//   res.json({ message: "I wish we had some information to give you ☹️" });
-// });
 
 catsRouter.get("/", async function (req, res) {
 	const result = await getAllCats();
