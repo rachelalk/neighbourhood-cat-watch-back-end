@@ -2,7 +2,9 @@ import express, { Router } from "express";
 import cors from "cors";
 import { query } from "../db/index.js";
 import { getAllCats, addNewCat, stillThere } from "../models/catsModels.js";
-const catsRouter = express.Router(cors());
+import bodyParser from "body-parser";
+const jsonParser = bodyParser.json();
+const catsRouter = express.Router(cors(), jsonParser);
 
 catsRouter.get("/", async function (req, res) {
 	const result = await getAllCats();
@@ -23,10 +25,10 @@ catsRouter.post("/", async function (req, res) {
 	});
 });
 
-catsRouter.patch("/id", async function (req, res) {
-	const id = Number(req.params.id);
-	const data = req.body;
-	const result = await stillThere(id, data);
+catsRouter.patch("/:id", async function (req, res) {
+	const id = req.params.id;
+	const updatedData = req.body;
+	const result = await stillThere(id, updatedData);
 	res.json({ success: true, payload: result });
 });
 

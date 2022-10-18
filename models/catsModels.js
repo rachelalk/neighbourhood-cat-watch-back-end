@@ -35,13 +35,11 @@ export async function addNewCat(newCat) {
 	return data.rows;
 }
 
-export async function stillThere(id, stillThere, notThere) {
-	const { cat_id } = id;
-	const { still_there } = stillThere;
-	const { not_there } = notThere;
+export async function stillThere(id, updatedData) {
+	const { still_there, not_there } = updatedData;
 	const data = await query(
-		`UPDATE cats SET still_there = $1 WHERE, not_there = $2 cat_id = $3 RETURNING *;`,
-		[Number(still_there), Number(not_there), Number(cat_id)]
+		`UPDATE cats SET still_there = $1, not_there = $2 WHERE cat_id = $3 RETURNING *;`,
+		[Number(still_there), Number(not_there), id]
 	);
 	return data.rows;
 }
