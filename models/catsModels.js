@@ -43,4 +43,5 @@ export async function stillThere(id, stillThere, notThere) {
 		`UPDATE cats SET still_there = $1 WHERE, not_there = $2 cat_id = $3 RETURNING *;`,
 		[Number(still_there), Number(not_there), Number(cat_id)]
 	);
+	return data.rows;
 }
