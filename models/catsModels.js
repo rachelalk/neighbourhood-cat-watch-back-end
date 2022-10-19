@@ -43,3 +43,11 @@ export async function stillThere(id, updatedData) {
 	);
 	return data.rows;
 }
+
+export async function deleteCat(id) {
+	console.log("delete");
+	const data = await query(`DELETE FROM cats WHERE cat_id = $1 RETURNING *`, [
+		id,
+	]);
+	return data.rows;
+}
